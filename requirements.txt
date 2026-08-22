@@ -1,0 +1,6 @@
+python-telegram-bot
+google-genai
+faster-whisper
+edge-tts
+Pillow
+torch
