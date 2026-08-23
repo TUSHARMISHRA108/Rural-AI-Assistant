@@ -424,13 +424,6 @@ The demonstration will show:
 
 **Live Prototype:** https://web.telegram.org/k/#@rural_ai_assistant_bot
 
-### GitHub
-
-https://github.com/Mohit-analytics/rural-ai-assistant
-
-### Demo Video
-
-**Demo Video:** *Add link here*
 
 ## 👨‍💻 Built For
 
