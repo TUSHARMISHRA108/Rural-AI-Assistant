@@ -1,434 +1,310 @@
-# 🌾 Rural AI Assistant
+# 🌾 KrishiMitra AI
 
-**AI-powered agricultural assistant for farmers using text, voice, crop images, and multilingual support.**
+### Multimodal AI Assistant for Farmers
 
-## 🚜 Problem
+KrishiMitra AI is a project I am developing to make agricultural assistance easier to access for farmers.
 
-Many farmers and rural users face difficulties getting quick and understandable agricultural guidance. Technical information can be difficult to access, especially for users who prefer speaking in their local language.
+The idea is simple: instead of requiring a farmer to type a technical question, the farmer can send a **crop image, voice message, text, or a combination of image and voice**.
 
-Rural AI Assistant provides a simple conversational interface where farmers can ask questions through **text, voice, or crop photographs** and receive practical AI-generated guidance.
+The system processes this information and provides a farmer-friendly response using AI, agricultural knowledge retrieval, and Indian-language support.
 
-## 💡 Solution
-
-Rural AI Assistant combines:
-
-* 🤖 **Google Gemini** for agricultural question answering and image analysis
-
-* 🎤 **Faster-Whisper** for converting voice questions into text
-
-* 🔊 **Edge-TTS** for generating spoken responses
-
-* 📷 **Gemini Vision** for analyzing crop images
-
-* 🌐 **Multilingual support** for Indian languages
-
-* 📱 **Telegram** as the farmer-facing interface
-
-The assistant is designed to use simple language and provide practical next steps rather than complicated technical explanations.
-
-## ✨ Core Features
-
-### 💬 Text-based farming assistance
-
-Farmers can send agricultural questions through Telegram and receive AI-generated responses.
-
-### 📷 Crop image analysis
-
-Farmers can send a photograph of a crop.
-
-The system attempts to:
-
-1. Identify the crop
-
-2. Describe visible symptoms
-
-3. Identify possible disease, pest, nutrient deficiency, or other problems when visual evidence is sufficient
-
-4. Provide a confidence level
-
-5. Suggest practical next steps
-
-6. Explain what should be avoided
-
-The system is instructed not to claim a definite diagnosis when the image does not provide enough evidence.
-
-### 🎤 Voice-based questions
-
-Farmers can send voice messages.
-
-The system:
-
-
-Voice Message
-
-&#x20;     ↓
-
-Faster-Whisper
-
-&#x20;     ↓
-
-Text Transcription
-
-&#x20;     ↓
-
-Gemini
-
-&#x20;     ↓
-
-Agricultural Response
-
-&#x20;     ↓
-
-Text + Voice Response
-
-### 🔊 Voice responses
-
-The generated answer can also be converted into speech using Edge-TTS.
-
-### 🌐 Multilingual support
-
-The prototype supports:
-
-* English
-
-* Hindi
-
-* Maithili
-
-* Bengali
-
-* Marathi
-
-* Tamil
-
-* Telugu
-
-* Kannada
-
-* Gujarati
-
-* Punjabi
-
-* Odia
-
-* Malayalam
-
-Users can select their preferred language using the /language command.
-
-## 🧠 AI Workflow
-
-
-&#x20;                        ┌─────────────────┐
-
-&#x20;                        │     Farmer      │
-
-&#x20;                        └────────┬────────┘
-
-&#x20;                                 │
-
-&#x20;                  ┌──────────────┼──────────────┐
-
-&#x20;                  ↓              ↓              ↓
-
-&#x20;               Text           Voice          Image
-
-&#x20;                  │              │              │
-
-&#x20;                  │        Whisper STT          │
-
-&#x20;                  │              ↓              │
-
-&#x20;                  │            Text             │
-
-&#x20;                  └──────────────┼──────────────┘
-
-&#x20;                                 ↓
-
-&#x20;                        ┌─────────────────┐
-
-&#x20;                        │ Google Gemini   │
-
-&#x20;                        │       AI        │
-
-&#x20;                        └────────┬────────┘
-
-&#x20;                                 ↓
-
-&#x20;                      Agricultural Guidance
-
-&#x20;                                 │
-
-&#x20;                         ┌───────┴───────┐
-
-&#x20;                         ↓               ↓
-
-&#x20;                      Text           Edge-TTS
-
-&#x20;                                         ↓
-
-&#x20;                                  Voice Response
-
-## 🛠️ Technology Stack
-
-| Technology | Purpose |
-
-| ------------------- | ------------------------------------ |
-
-| Python | Core application |
-
-| Google Gemini | AI reasoning and crop image analysis |
-
-| Faster-Whisper | Speech-to-text |
-
-| Edge-TTS | Text-to-speech |
-
-| Pillow | Image processing |
-
-| python-telegram-bot | Telegram interface |
-
-| PyTorch | Whisper model execution |
-
-| Nest AsyncIO | Async execution support |
-
-## 📁 Project Structure
-
-
-rural-ai-assistant/
-
-│
-
-├── rural-ai-assistant.py
-
-├── requirements.txt
-
-├── .gitignore
-
-└── README.md
-
-## ⚙️ Installation
-
-### 1. Clone the repository
-
-git clone https://github.com/Mohit-analytics/rural-ai-assistant.git
-
-cd rural-ai-assistant
-### 2. Create a virtual environment
-
-Windows:
-
-python -m venv venv
-Activate it:
-
-venv\\Scripts\\activate
-### 3. Install dependencies
-
-pip install -r requirements.txt
-## 🔑 API Keys
-
-The application requires:
-
-* Google Gemini API key
-
-* Telegram Bot token
-
-The application asks for these credentials at runtime instead of storing them directly in the source code.
-
-GEMINI\_API\_KEY = getpass("Enter GEMINI\_API\_KEY: ")
-
-TELEGRAM\_BOT\_TOKEN = getpass("Enter TELEGRAM\_BOT\_TOKEN: ")
-**Never commit API keys, bot tokens, passwords, or other secrets to GitHub.**
-
-## ▶️ Run the Application
-
-Run:
-
-python rural-ai-assistant.py
-The application will ask for:
-
-
-Enter GEMINI\_API\_KEY:
-
-Enter TELEGRAM\_BOT\_TOKEN:
-
-After successful initialization, the Telegram bot starts polling for messages.
-
-Open Telegram and send:
-
-
-/start
-
-## 📱 Telegram Commands
-
-### /start
-
-Displays the welcome message and explains the available features.
-
-### /language
-
-Opens the language selection menu.
-
-## 🌾 Example Usage
-
-### Text
-
-
-Farmer:
-
-My wheat leaves are turning yellow. What should I do?
-
-The assistant analyzes the question and provides possible causes and practical next steps.
-
-### Image
-
-
-Farmer → Crop photograph
-
-&#x20;             ↓
-
-&#x20;       Gemini Vision
-
-&#x20;             ↓
-
-&#x20;    Visible symptom analysis
-
-&#x20;             ↓
-
-&#x20;    Possible causes + guidance
-
-### Voice
-
-
-Farmer → Voice message
-
-&#x20;             ↓
-
-&#x20;       Faster-Whisper
-
-&#x20;             ↓
-
-&#x20;         Transcription
-
-&#x20;             ↓
-
-&#x20;          Gemini
-
-&#x20;             ↓
-
-&#x20;      AI response
-
-&#x20;             ↓
-
-&#x20;        Edge-TTS
-
-&#x20;             ↓
-
-&#x20;     Voice response
-
-## 🛡️ Responsible AI Approach
-
-The system is designed with several safety principles:
-
-* It should not invent pesticide or fertilizer dosages.
-
-* It should not claim certainty when an image is unclear.
-
-* It provides a confidence level for image-based analysis.
-
-* Chemical recommendations should follow verified agricultural guidance and product labels.
-
-* It should acknowledge uncertainty when reliable information cannot be determined.
-
-* It uses simple language suitable for rural users.
-
-## 🚀 Scalability
-
-The prototype can be extended beyond Telegram into:
-
-* 🌐 Web applications
-
-* 📱 Mobile applications
-
-* 💬 WhatsApp-based interfaces
-
-* ☎️ Voice-based agricultural helplines
-
-* 🏪 Farmer support centers
-
-* 🌾 Regional agricultural advisory systems
-
-Future versions could integrate verified agricultural databases, weather information, mandi prices, government schemes, and localized crop advisory systems.
-
-## 🔮 Future Improvements
-
-Potential improvements include:
-
-1. Integration with verified agricultural knowledge bases
-
-2. Weather-aware spraying recommendations
-
-3. Mandi price information
-
-4. Government scheme information
-
-5. More regional languages and dialects
-
-6. Better crop disease detection using specialized agricultural models
-
-7. Farmer-specific crop history
-
-8. Offline or low-connectivity support
-
-9. WhatsApp integration
-
-10. Web/mobile farmer dashboard
-
-## ⚠️ Current Limitations
-
-This is a prototype. AI-generated agricultural guidance should not replace advice from qualified agricultural experts.
-
-Image-based crop diagnosis can be affected by:
-
-* Poor image quality
-
-* Poor lighting
-
-* Multiple symptoms
-
-* Similar-looking diseases
-
-* Missing context about crop age, soil, weather, and farming practices
-
-The current prototype also depends on external AI and speech services.
-
-## 🎥 Demo Video
-
-**Demo:** *Add your final demo video link here*
-
-The demonstration will show:
-
-* Text-based agricultural assistance
-
-* Crop image analysis
-
-* Voice questions
-
-* Voice responses
-
-* Language selection
-
-* End-to-end Telegram interaction
-
-## 🏆 Hackathon Submission
-
-### Prototype
-
-**Live Prototype:** https://web.telegram.org/k/#@rural_ai_assistant_bot
-
-
-## 👨‍💻 Built For
-
-Developed as an AI-for-agriculture prototype focused on making agricultural assistance more accessible to rural users through conversational AI, voice, images, and regional languages.
+> **Current prototype:** Telegram
+> **Planned deployment:** WhatsApp
 
 ---
 
-**🌾 Rural AI Assistant: Making AI-powered agricultural guidance simpler and more accessible.**
+## Problem
+
+Many agricultural information systems depend on text-based queries, app navigation, or users knowing how to describe their crop problem technically.
+
+This can be difficult when a farmer wants to ask something like:
+
+> "There are small insects under my tomato leaves and the leaves are curling. What should I do?"
+
+The farmer may not know the name of the pest or how to describe the symptoms in technical terms.
+
+KrishiMitra tries to make the interaction more natural:
+
+**Take a photo → Speak the problem → Get a simple answer**
+
+---
+
+## What KrishiMitra Does
+
+The current prototype supports:
+
+* 📷 Crop image input
+* 🎙️ Voice input
+* 💬 Text input
+* 🔎 Image-based crop problem analysis
+* 🧠 AI-based response generation
+* 📚 Agricultural RAG / knowledge retrieval
+* 🌐 Indian-language support
+* 🔊 Voice-based response support
+* 🔄 LLM fallback mechanism
+
+---
+
+## System Architecture
+
+![KrishiMitra AI Architecture](architecture/system_architecture.png)
+
+### Current AI Pipeline
+
+```text
+             FARMER
+                │
+       ┌────────┼────────┐
+       │        │        │
+     Image    Voice     Text
+       │        │        │
+       ▼        ▼        ▼
+   Gemini    Groq     Text Processing
+   Vision    Speech
+       │        │
+       └────┬───┘
+            ▼
+      Multimodal Context
+            │
+            ▼
+    Agricultural RAG
+            │
+            ▼
+ Agricultural Knowledge Base
+            │
+            ▼
+      Response Generation
+            │
+      ┌─────┴─────┐
+      │           │
+    Groq      OpenRouter
+  Primary      Fallback
+      │           │
+      └─────┬─────┘
+            ▼
+        Bhashini
+            │
+            ▼
+   Indian Language / Voice
+            │
+            ▼
+          Farmer
+```
+
+---
+
+## Technologies Used
+
+| Component           | Technology            | Purpose                                    |
+| ------------------- | --------------------- | ------------------------------------------ |
+| Image Analysis      | Gemini                | Crop image understanding                   |
+| Voice Processing    | Groq / Whisper        | Voice-to-text processing                   |
+| Primary Response    | Groq                  | Response generation                        |
+| Fallback            | OpenRouter            | Backup LLM route                           |
+| Knowledge Retrieval | RAG                   | Retrieve relevant agricultural information |
+| Vector Search       | FAISS                 | Similarity-based retrieval                 |
+| Embeddings          | Sentence Transformers | Convert agricultural text into vectors     |
+| Language Layer      | Bhashini              | Indian-language translation / speech       |
+| Interface           | Telegram              | Current working prototype                  |
+| Planned Interface   | WhatsApp              | Easier farmer access                       |
+
+---
+
+## Agricultural Knowledge Base
+
+The RAG component is intended to ground responses in agricultural information rather than relying only on the LLM's internal knowledge.
+
+The knowledge base is being structured around:
+
+* Crops
+* Pests
+* Diseases
+* Nutrient deficiencies
+* Symptoms
+* Organic management
+* Prevention
+* Crop treatments
+* Farmer-used terms / synonyms
+* Source documents
+* Page-level references
+
+### Current limitation
+
+The current agricultural knowledge base is still relatively small.
+
+Therefore, KrishiMitra cannot reliably answer every possible agricultural question yet.
+
+One of my current goals is to expand the knowledge base using verified agricultural documents and improve retrieval and evaluation.
+
+---
+
+## Example
+
+### Farmer Input
+
+**Image:** Tomato leaves with small insects
+
+**Voice:**
+
+> "There are many small insects under the leaves and the leaves are curling. What organic solution can I use?"
+
+### Processing
+
+1. Gemini analyses the crop image.
+2. Voice is converted into text.
+3. The image information and farmer description are combined.
+4. Relevant agricultural information is retrieved from the RAG knowledge base.
+5. The response is generated.
+6. Bhashini can provide the response in an Indian language / voice format.
+
+### Expected Output
+
+A simple farmer-friendly explanation of the likely problem, relevant symptoms, and evidence-based management options.
+
+---
+
+# Why not just use ChatGPT or Gemini?
+
+KrishiMitra is not intended to compete with general-purpose LLMs by claiming to have a larger or smarter model.
+
+Instead, the goal is to build a **domain-specific system around existing AI models**.
+
+A general LLM can answer agricultural questions, but KrishiMitra is designed around a specific farmer workflow:
+
+```text
+Photo + Voice
+      ↓
+Agricultural Context
+      ↓
+Agricultural Knowledge Retrieval
+      ↓
+AI Reasoning
+      ↓
+Local Language
+      ↓
+Farmer-Friendly Response
+```
+
+The system can also be extended with agriculture-specific services such as:
+
+* Mandi prices
+* Regional crop-problem monitoring
+* Repeated-query detection
+* Local agricultural information
+
+The research question I am interested in is whether this domain-specific workflow can provide more useful and better-grounded assistance than simply asking a general-purpose LLM.
+
+---
+
+## Current Prototype
+
+The current working prototype is available through **Telegram**.
+
+The core workflow is functional, including:
+
+* Image input
+* Voice input
+* Text input
+* AI processing
+* RAG retrieval
+* LLM fallback
+* Indian-language processing
+
+The system is still under development.
+
+---
+
+## Current Limitations
+
+The project is currently a prototype, not a production agricultural advisory system.
+
+Current limitations include:
+
+1. The agricultural knowledge base is still small.
+2. Retrieval quality needs further evaluation.
+3. Crop diagnosis can be uncertain when image quality is poor.
+4. Different crop diseases and pests can have similar visual symptoms.
+5. The system needs a larger evaluation dataset.
+6. Real-world farmer testing is still required.
+
+These limitations are part of the current development and research work.
+
+---
+
+## Future Work
+
+### 1. Larger Agricultural Knowledge Base
+
+Expand the verified knowledge base across major Indian crops.
+
+### 2. Better Multimodal Evaluation
+
+Compare:
+
+* Image-only input
+* Voice-only input
+* Text-only input
+* Image + voice input
+
+and measure whether combining modalities improves diagnosis.
+
+### 3. Response Evaluation
+
+Evaluate:
+
+* Accuracy
+* Relevance
+* Retrieval quality
+* Hallucination/error rate
+* Source grounding
+* Uncertainty handling
+
+### 4. Mandi Information
+
+Integrate relevant market-price information to provide additional decision support.
+
+### 5. Regional Pattern Detection
+
+If many similar crop-related questions are received from a particular geographical area, the system could identify a possible regional pattern and generate an alert for further investigation.
+
+### 6. WhatsApp Deployment
+
+Move the farmer-facing interface from the current Telegram prototype to WhatsApp to reduce the need for farmers to install and learn a separate application.
+
+---
+
+## Project Status
+
+| Component                   | Status              |
+| --------------------------- | ------------------- |
+| Telegram Bot                | ✅ Working prototype |
+| Image Input                 | ✅ Working           |
+| Voice Input                 | ✅ Working           |
+| Text Input                  | ✅ Working           |
+| Gemini Image Analysis       | ✅ Integrated        |
+| Groq Processing             | ✅ Integrated        |
+| OpenRouter Fallback         | ✅ Integrated        |
+| RAG Pipeline                | 🚧 Developing       |
+| Agricultural Knowledge Base | 🚧 Expanding        |
+| Bhashini Integration        | ✅ Integrated        |
+| Mandi Data                  | 🔜 Planned          |
+| Regional Pattern Detection  | 🔜 Planned          |
+| WhatsApp Deployment         | 🔜 Planned          |
+
+---
+
+## Research Direction
+
+The long-term goal is not simply to build another agricultural chatbot.
+
+I want to investigate how **multimodal machine learning + retrieval-augmented generation + domain-specific knowledge** can be combined to build more reliable AI assistance for real-world agricultural problems.
+
+A particular area I am interested in is comparing **image-only crop diagnosis with image + voice diagnosis** and studying whether additional contextual information from the farmer improves the quality and reliability of the result.
+
+---
+
+## Disclaimer
+
+KrishiMitra AI is currently a research/prototype project.
+
+Its responses should not be treated as a substitute for advice from qualified agricultural experts. The system may produce incorrect or incomplete results, particularly when the available evidence or knowledge-base coverage is insufficient.
